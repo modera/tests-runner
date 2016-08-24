@@ -1,5 +1,7 @@
 # modera/tests-runner
 
+[![StyleCI](https://styleci.io/repos/66460721/shield)](https://styleci.io/repos/66460721)
+
 The package provides a PHPUnit listener that can be used to perform certain operations before/after test suite is 
 executed. For instance when running functional tests you may want to create a database before test is run and drop 
 it afterwards.
