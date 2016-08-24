@@ -42,7 +42,7 @@ class MySqlInterceptor extends BaseInterceptor
         $this->reportingCallback = $reportingCallback;
 
         if (!$this->reportingCallback) {
-            $this->reportingCallback = function($type, array $args = array()) {
+            $this->reportingCallback = function ($type, array $args = array()) {
                 switch ($type) {
                     case self::FIRST_ATTEMPT:
                         echo 'Attempting to connect to database ';
@@ -50,7 +50,7 @@ class MySqlInterceptor extends BaseInterceptor
                         break;
 
                     case self::PROGRESS_INCREASE:
-                        echo ".";
+                        echo '.';
                         sleep(1);
 
                         break;
@@ -87,7 +87,7 @@ class MySqlInterceptor extends BaseInterceptor
             $this->db = $this->connectToDb($config);
         }
 
-        $this->db->query("CREATE DATABASE ".$this->formatTableName($composerJson['name']));
+        $this->db->query('CREATE DATABASE '.$this->formatTableName($composerJson['name']));
     }
 
     private function validateConfig(array $config)
@@ -95,7 +95,8 @@ class MySqlInterceptor extends BaseInterceptor
         // TODO
     }
 
-    private function connectToDb(array $config, $currentAttempt = 0) {
+    private function connectToDb(array $config, $currentAttempt = 0)
+    {
         try {
             mysqli_report(MYSQLI_REPORT_STRICT);
             $db = new \mysqli($config['host'], $config['user'], $config['password']);
@@ -111,7 +112,7 @@ class MySqlInterceptor extends BaseInterceptor
 
                 call_user_func($this->reportingCallback, self::PROGRESS_INCREASE);
 
-                return $this->connectToDb($config, 1+$currentAttempt);
+                return $this->connectToDb($config, 1 + $currentAttempt);
             } else {
                 call_user_func($this->reportingCallback, self::DB_FAIL, array('exception' => $e));
             }
@@ -127,7 +128,7 @@ class MySqlInterceptor extends BaseInterceptor
             return;
         }
 
-        $this->db->query("DROP DATABASE ".$this->formatTableName($composerJson['name']));
+        $this->db->query('DROP DATABASE '.$this->formatTableName($composerJson['name']));
     }
 
     /**
@@ -139,7 +140,7 @@ class MySqlInterceptor extends BaseInterceptor
     {
         $segments = [];
         if (strpos($packageName, '/')) {
-            list ($vendor, $packageName) = explode('/', $packageName);
+            list($vendor, $packageName) = explode('/', $packageName);
 
             $segments = array_merge([$vendor], explode('-', $packageName));
         } else {

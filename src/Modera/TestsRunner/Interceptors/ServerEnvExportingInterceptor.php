@@ -32,11 +32,10 @@ class ServerEnvExportingInterceptor extends BaseInterceptor
     {
         global $_SERVER;
 
-        foreach ($this->envVars as $name=>$value) {
+        foreach ($this->envVars as $name => $value) {
             if (!isset($_SERVER[$name])) {
                 $_SERVER[$name] = $value;
             }
         }
     }
-
 }

@@ -67,7 +67,7 @@ class InterceptorsExecutorTest extends \PHPUnit_Framework_TestCase
                         'FooUtil' => array(
                             'Util.php' => '',
                             'Tests' => array(
-                                'UtilTest.php' => '' // test case for ../Util class
+                                'UtilTest.php' => '', // test case for ../Util class
                             ),
                             'composer.json' => json_encode(array('FooUtil-composer.json')),
                         ),
@@ -77,9 +77,9 @@ class InterceptorsExecutorTest extends \PHPUnit_Framework_TestCase
                                 'DefinitionTest.php' => '',
                             ),
                             'composer.json' => json_encode(array('Bar-composer.json')),
-                        )
+                        ),
                     ),
-                )
+                ),
             ),
             'composer.json' => json_encode(array('root-composer.json')),
         ));

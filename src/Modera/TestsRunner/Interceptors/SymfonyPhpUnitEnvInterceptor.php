@@ -44,8 +44,8 @@ class SymfonyPhpUnitEnvInterceptor extends BaseInterceptor
                     /* @var \SimpleXMLElement $phpChild */
                     if ($phpChild->getName() == 'server') {
                         $attrs = array();
-                        foreach ($phpChild->attributes() as $name=>$value) {
-                            $attrs[$name] = (string)$value;
+                        foreach ($phpChild->attributes() as $name => $value) {
+                            $attrs[$name] = (string) $value;
                         }
 
                         if (isset($attrs['name']) && isset($attrs['value'])) {

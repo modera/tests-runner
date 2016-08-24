@@ -5,7 +5,7 @@ namespace Modera\TestsRunner;
 /**
  * @internal
  *
- * Orchestrates interceptors.
+ * Orchestrates interceptors
  *
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
  * @copyright 2016 Modera Foundation
@@ -47,7 +47,7 @@ class InterceptorsExecutor
         $path = explode(DIRECTORY_SEPARATOR, $classPathname);
 
         // finding a nearest composer.json relatively to the given test case suite
-        for ($i=count($path); $i>=-1; $i--) {
+        for ($i = count($path); $i >= -1; --$i) {
             $currentRootDir = implode(DIRECTORY_SEPARATOR, array_slice($path, 0, $i));
             if (file_exists($currentRootDir.'/composer.json')) {
                 $packageDir = $currentRootDir;
@@ -69,7 +69,7 @@ class InterceptorsExecutor
 
                 $this->activeSuite = array(
                     'dir' => $packageDir,
-                    'composer_json' => $packageComposerJson
+                    'composer_json' => $packageComposerJson,
                 );
             }
         } else {
@@ -79,7 +79,7 @@ class InterceptorsExecutor
 
             $this->activeSuite = array(
                 'dir' => $packageDir,
-                'composer_json' => $packageComposerJson
+                'composer_json' => $packageComposerJson,
             );
         }
     }

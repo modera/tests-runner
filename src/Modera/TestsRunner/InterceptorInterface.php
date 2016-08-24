@@ -15,7 +15,7 @@ interface InterceptorInterface
      * Method is invoked when a new test-case is started.
      *
      * @param string $dir
-     * @param array $composerJson
+     * @param array  $composerJson
      */
     public function onEnter($dir, array $composerJson);
 
@@ -23,7 +23,7 @@ interface InterceptorInterface
      * Method is invoked before a currently active test-case is finised and a new one is started.
      *
      * @param string $dir
-     * @param array $composerJson
+     * @param array  $composerJson
      */
     public function onLeave($dir, array $composerJson);
 }

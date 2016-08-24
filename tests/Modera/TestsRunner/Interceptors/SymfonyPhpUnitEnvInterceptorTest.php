@@ -61,10 +61,10 @@ XML;
                         'Foo' => array(
                             'phpunit.xml' => $this->formatPhpUnitXml($varsXml1), // this one must have precedence
                             'phpunit.xml.dist' => $this->formatPhpUnitXml($varsXml2),
-                        )
-                    )
-                )
-            )
+                        ),
+                    ),
+                ),
+            ),
         ));
 
         $dir = $root->url().'/src/Acme/Component/Foo';
