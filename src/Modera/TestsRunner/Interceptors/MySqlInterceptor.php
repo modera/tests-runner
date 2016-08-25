@@ -18,11 +18,17 @@ class MySqlInterceptor extends BaseInterceptor
     const CONNECTED = 'connected';
 
     /**
+     * This callback must provide configuration values that can be used to connect to database. Required keys are:
+     * host, user, password, attempts, port.
+     *
      * @var callable
      */
     private $configProvider;
 
     /**
+     * This callback will be invoked at different stages when attempting to connect to database. See this class constants
+     * for possible stages.
+     *
      * @var callable
      */
     private $reportingCallback;
@@ -56,7 +62,7 @@ class MySqlInterceptor extends BaseInterceptor
                         break;
 
                     case self::CONNECTED:
-                        echo "\n";
+                        echo "\n\n";
 
                         break;
 
@@ -90,16 +96,47 @@ class MySqlInterceptor extends BaseInterceptor
         $this->db->query('CREATE DATABASE '.$this->formatTableName($composerJson['name']));
     }
 
+    /**
+     * @param array $config
+     */
     private function validateConfig(array $config)
     {
-        // TODO
+        $missingKeys = [];
+        foreach (['host', 'user', 'password', 'attempts'] as $key) {
+            if (!isset($config[$key])) {
+                $missingKeys[] = $key;
+            }
+        }
+
+        if (count($missingKeys) > 0) {
+            throw new \RuntimeException('These configuration keys are missing: '.implode(', ', $missingKeys));
+        }
     }
 
+    /**
+     * @internal
+     *
+     * @param array $config
+     *
+     * @return \mysqli
+     */
+    protected function createDatabaseConnection(array $config)
+    {
+        return new \mysqli($config['host'], $config['user'], $config['password'], null, $config['port']);
+    }
+
+    /**
+     * @param array $config
+     * @param int   $currentAttempt
+     *
+     * @return \mysqli
+     */
     private function connectToDb(array $config, $currentAttempt = 0)
     {
         try {
             mysqli_report(MYSQLI_REPORT_STRICT);
-            $db = new \mysqli($config['host'], $config['user'], $config['password']);
+
+            $db = $this->createDatabaseConnection($config);
 
             call_user_func($this->reportingCallback, self::CONNECTED);
 
