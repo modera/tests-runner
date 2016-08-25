@@ -27,11 +27,15 @@ it afterwards.
                         'host' => $_SERVER['SYMFONY__DB_HOST'],
                         'user' => $_SERVER['SYMFONY__DB_USER'],
                         'password' => $_SERVER['SYMFONY__DB_PASSWORD'],
-                        'attempts' => isset($_SERVER['DB_ATTEMPTS']) ? $_SERVER['DB_ATTEMPTS'] : 5,
+                        'port' => $_SERVER['SYMFONY__DB_PORT'],
+                        'attempts' => isset($_SERVER['DB_ATTEMPTS']) ? $_SERVER['DB_ATTEMPTS'] : 40,
                     );
                 }
             ),
         ];
+        
+ This file is resonsible for creating so called interceptors - additional pieces of code that will get executed before
+ and after test-cases.
         
  * Update your phpunit.xml file to reference test runner's listener, here we are assuming that test runner is located
  in directory called *mtr*:
