@@ -20,7 +20,7 @@ interface InterceptorInterface
     public function onEnter($dir, array $composerJson);
 
     /**
-     * Method is invoked before a currently active test-case is finised and a new one is started.
+     * Method is invoked before a currently active test-case is finished and a new one is started.
      *
      * @param string $dir
      * @param array  $composerJson
