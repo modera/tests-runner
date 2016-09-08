@@ -9,6 +9,10 @@ it afterwards.
 
 ## Installation
 
+ * In a project where you want to run tests use this command to install runner bash script:
+ 
+        wget https://raw.githubusercontent.com/modera/tests-runner/master/scripts/phpunit.sh && chmod +x phpunit.sh
+
  * Create file named **.mtr** (notice a dot in the beginning) next to your phpunit.xml/phpunit.xml.dist, sample:
  
         <?php
@@ -34,12 +38,14 @@ it afterwards.
             ),
         ];
         
- This file is resonsible for creating so called interceptors - additional pieces of code that will get executed before
+ This file is responsible for creating so called interceptors - additional pieces of code that will get executed before
  and after test-cases.
         
  * Update your phpunit.xml file to reference test runner's listener, here we are assuming that test runner is located
- in directory called *mtr*:
+ in a directory called *mtr* (by default installing script from the first step installs the tests runner there):
  
         <listeners>
             <listener class="Modera\TestsRunner\PhpUnitListener" file="./mtr/src/Modera/TestsRunner/PhpUnitListener.php"></listener>
         </listeners>
+        
+ * Now you can use `phpunit.sh` script created in the first step to run your tests
