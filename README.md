@@ -9,9 +9,13 @@ it afterwards.
 
 ## Installation
 
- * In a project where you want to run tests use this command to install runner bash script:
+ * (Optional, Recommended) If you have docker installed then in a project where you want to run tests use this command to install 
+ runner bash script:
  
         wget https://raw.githubusercontent.com/modera/tests-runner/master/scripts/phpunit.sh && chmod +x phpunit.sh
+        
+ Later you will be able to use this script to run tests, on the first run this script will also install additional
+ required components.
 
  * Create file named **.mtr** (notice a dot in the beginning) next to your phpunit.xml/phpunit.xml.dist, sample:
  
@@ -39,7 +43,7 @@ it afterwards.
         ];
         
  This file is responsible for creating so called interceptors - additional pieces of code that will get executed before
- and after test-cases.
+ and after test-cases. More about them you can read later in this document.
         
  * Update your phpunit.xml file to reference test runner's listener, here we are assuming that test runner is located
  in a directory called *mtr* (by default installing script from the first step installs the tests runner there):
@@ -48,7 +52,12 @@ it afterwards.
             <listener class="Modera\TestsRunner\PhpUnitListener" file="./mtr/src/Modera/TestsRunner/PhpUnitListener.php"></listener>
         </listeners>
         
- * Now you can use `phpunit.sh` script created in the first step to run your tests
+ * Now you can use `phpunit.sh` script created in the first step to run your tests.
+
+## Running tests with default script
+
+The easiest way to run tests for your project that uses test-runner is to use provided `phpunit.sh` script. Please
+refer to script's source code to see all available options that you can use while using it.
 
 ## Interceptors
 
