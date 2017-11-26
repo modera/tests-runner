@@ -1,6 +1,5 @@
 # modera/tests-runner
 
-[![StyleCI](https://styleci.io/repos/66460721/shield)](https://styleci.io/repos/66460721)
 [![Build Status](https://travis-ci.org/modera/tests-runner.svg?branch=master)](https://travis-ci.org/modera/tests-runner)
 
 The package provides a PHPUnit listener that can be used to perform certain operations before/after test suite is 
