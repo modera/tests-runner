@@ -15,11 +15,12 @@ class PhpUnitListener extends \PHPUnit_Framework_BaseTestListener
 
     public function __construct()
     {
+        // BC, if installed in old way
         $loaderPath = __DIR__.'/../../../vendor/autoload.php';
         if (file_exists($loaderPath)) {
             require_once $loaderPath;
         } else {
-            throw new \RuntimeException();
+            //throw new \RuntimeException();
         }
 
         $interceptors = [];

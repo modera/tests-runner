@@ -9,8 +9,6 @@
 # passed to PHPUnit as is. For example, this will run tests of src/Foo/Bar directory:
 # $ ./phpunit.sh --md src/Foo/Bar
 
-RUNNER_GIT_DIR="mtr"
-
 set -e
 
 args=$@
@@ -27,35 +25,15 @@ if ! type docker > /dev/null; then
 fi
 
 if [ ! -d "vendor" ]; then
-  echo "# No vendor dir detected, installing modera/composer-monorepo-plugin and then project's dependencies"
-
-  printf "composer global require modera/composer-monorepo-plugin:dev-master\ncomposer install" > install.sh
-  chmod +x install.sh
+  echo "# No vendor dir detected, installing dependencies first then"
 
   docker run \
   -it \
   --rm \
   -v `pwd`:/mnt/tmp \
   -w /mnt/tmp \
-  modera/php7-fpm "./install.sh"
-
-  rm install.sh
+  modera/php:7.0 "composer install"
 fi
-
-if [ ! -d "$RUNNER_GIT_DIR" ]; then
-  echo "# Cloning and installing test-runner"
-
-  git clone https://github.com/modera/tests-runner.git $RUNNER_GIT_DIR
-
-  docker run \
-  -it \
-  --rm \
-  -v `pwd`/$RUNNER_GIT_DIR:/mnt/tmp \
-  -w /mnt/tmp \
-  modera/php7-fpm "composer install"
-fi
-
-# if there's no mtr_php image then create a Docker file in $RUNNER_GIT_DIR and build it
 
 if [[ `docker ps` != *"mtr_mysql"* ]]; then
   if [ "$is_daemon" = true ] ; then
@@ -79,12 +57,12 @@ docker run \
 -w /mnt/tmp \
 -e MONOLITH_TEST_SUITE=1 \
 --link mtr_mysql:mysql \
-modera/php7-fpm "vendor/bin/phpunit ${args}"
+modera/php:7.0 "vendor/bin/phpunit ${args}"
 
 exit_code=$?
 
 if [ "$is_daemon" = false ] ; then
-  docker rm -f mtr_mysql > /dev/null
+  docker rm -fv mtr_mysql > /dev/null
 fi
 
 exit $exit_code

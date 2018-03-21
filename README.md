@@ -8,49 +8,60 @@ it afterwards.
 
 ## Installation
 
+ * Add this dependency to your composer.json:
+```
+"modera/tests-runner": "dev-master"
+```
+
  * (Optional, Recommended) If you have docker installed then in a project where you want to run tests use this command to install 
  runner bash script:
- 
-        wget https://raw.githubusercontent.com/modera/tests-runner/master/scripts/phpunit.sh && chmod +x phpunit.sh
-        
+
+``` sh
+wget https://raw.githubusercontent.com/modera/tests-runner/master/scripts/phpunit.sh && chmod +x phpunit.sh
+```
+
  Later you will be able to use this script to run tests, on the first run this script will also install additional
  required components.
 
  * Create file named **.mtr** (notice a dot in the beginning) next to your phpunit.xml/phpunit.xml.dist, sample:
- 
-        <?php
-        
-        return [
-            new \Modera\TestsRunner\Interceptors\ServerEnvExportingInterceptor(array(
-                'SYMFONY__DB_HOST' => 'mysql',
-                'SYMFONY__DB_PORT' => 3306,
-                'SYMFONY__DB_USER' => 'root',
-                'SYMFONY__DB_PASSWORD' => '123123'
-            )),
-            new \Modera\TestsRunner\Interceptors\SymfonyPhpUnitEnvInterceptor(),
-            new \Modera\TestsRunner\Interceptors\MySqlInterceptor(
-                function() { // config provider
-                    return array(
-                        'host' => $_SERVER['SYMFONY__DB_HOST'],
-                        'user' => $_SERVER['SYMFONY__DB_USER'],
-                        'password' => $_SERVER['SYMFONY__DB_PASSWORD'],
-                        'port' => $_SERVER['SYMFONY__DB_PORT'],
-                        'attempts' => isset($_SERVER['DB_ATTEMPTS']) ? $_SERVER['DB_ATTEMPTS'] : 40,
-                    );
-                }
-            ),
-        ];
-        
+
+``` php
+<?php
+
+return [
+    new \Modera\TestsRunner\Interceptors\ServerEnvExportingInterceptor(array(
+        'SYMFONY__DB_HOST' => 'mysql',
+        'SYMFONY__DB_PORT' => 3306,
+        'SYMFONY__DB_USER' => 'root',
+        'SYMFONY__DB_PASSWORD' => '123123'
+    )),
+    new \Modera\TestsRunner\Interceptors\SymfonyPhpUnitEnvInterceptor(),
+    new \Modera\TestsRunner\Interceptors\MySqlInterceptor(
+        function() { // config provider
+            return array(
+                'host' => $_SERVER['SYMFONY__DB_HOST'],
+                'user' => $_SERVER['SYMFONY__DB_USER'],
+                'password' => $_SERVER['SYMFONY__DB_PASSWORD'],
+                'port' => $_SERVER['SYMFONY__DB_PORT'],
+                'attempts' => isset($_SERVER['DB_ATTEMPTS']) ? $_SERVER['DB_ATTEMPTS'] : 40,
+            );
+        }
+    ),
+];
+```
+
  This file is responsible for creating so called interceptors - additional pieces of code that will get executed before
  and after test-cases. More about them you can read later in this document.
-        
+
  * Update your phpunit.xml file to reference test runner's listener, here we are assuming that test runner is located
- in a directory called *mtr* (by default installing script from the first step installs the tests runner there):
- 
-        <listeners>
-            <listener class="Modera\TestsRunner\PhpUnitListener" file="./mtr/src/Modera/TestsRunner/PhpUnitListener.php"></listener>
-        </listeners>
-        
+ in a directory called *vendor/modera/tests-runner* (by default installing script from the first step installs the tests runner there):
+
+``` xml
+<listeners>
+    <listener class="Modera\TestsRunner\PhpUnitListener" file="./vendor/modera/tests-runner/src/Modera/TestsRunner/PhpUnitListener.php"></listener>
+</listeners>
+```
+
  * Now you can use `phpunit.sh` script created in the first step to run your tests.
 
 ## Running tests with default script
@@ -65,18 +76,20 @@ a couple words about what interceptors really are and what they are used for. Es
 guessed, interceptors allow you to perform additional actions before and after PHPUnit switcheds a package that it is 
 running tests for. The package itself is designated by existence of composer.json file. Imaging that you have a following 
 files structure:
-    
-    src\
-        Acme\
-            FooBundle\
-                Tests\
-                    ...
-                composer.json
-            BarBundle\
-                Tests\
-                    ...
-                composer.json
-                
+
+```
+src\
+    Acme\
+        FooBundle\
+            Tests\
+                ...
+            composer.json
+        BarBundle\
+            Tests\
+                ...
+            composer.json
+```
+
 When tests-runner runs tests for *src/* directory it will run interceptors two times, more specifically:
 
  * Before entering FooBundle
