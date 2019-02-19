@@ -2,29 +2,7 @@
 
 namespace Modera\TestsRunner;
 
-if (class_exists('PHPUnit\Framework\TestSuite')) {
-    class __InterceptorsExecutor__
-    {
-        /**
-         * @param \PHPUnit\Framework\TestSuite $suite
-         */
-        public function handleSuite(\PHPUnit\Framework\TestSuite $suite)
-        {
-            $this->_handleSuite($suite);
-        }
-    }
-} else {
-    class __InterceptorsExecutor__
-    {
-        /**
-         * @param \PHPUnit_Framework_TestSuite $suite
-         */
-        public function handleSuite(\PHPUnit_Framework_TestSuite $suite)
-        {
-            $this->_handleSuite($suite);
-        }
-    }
-}
+use PHPUnit\Framework\TestSuite;
 
 /**
  * @internal
@@ -34,7 +12,7 @@ if (class_exists('PHPUnit\Framework\TestSuite')) {
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
  * @copyright 2016 Modera Foundation
  */
-class InterceptorsExecutor extends __InterceptorsExecutor__
+class InterceptorsExecutor
 {
     /**
      * @var InterceptorInterface[]
@@ -55,9 +33,9 @@ class InterceptorsExecutor extends __InterceptorsExecutor__
     }
 
     /**
-     * @param \PHPUnit\Framework\TestSuite $suite
+     * @param TestSuite $suite
      */
-    protected function _handleSuite($suite)
+    public function handleSuite(TestSuite $suite)
     {
         $suiteClassName = $suite->getName();
         if (!class_exists($suiteClassName)) {

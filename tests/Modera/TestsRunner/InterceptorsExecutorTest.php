@@ -3,6 +3,8 @@
 namespace Modera\TestsRunner;
 
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestSuite;
 
 require_once __DIR__.'/fixtures.php';
 
@@ -17,31 +19,11 @@ final class InterceptorsExecutorUT extends InterceptorsExecutor
     }
 }
 
-if (class_exists('PHPUnit\Framework\TestCase')) {
-    class InterceptorsExecutorTestCase extends \PHPUnit\Framework\TestCase
-    {
-    }
-} else {
-    class InterceptorsExecutorTestCase extends \PHPUnit_Framework_TestCase
-    {
-    }
-}
-
-if (class_exists('PHPUnit\Framework\TestSuite')) {
-    class InterceptorsExecutorTestSuite extends \PHPUnit\Framework\TestSuite
-    {
-    }
-} else {
-    class InterceptorsExecutorTestSuite extends \PHPUnit_Framework_TestSuite
-    {
-    }
-}
-
 /**
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
  * @copyright 2016 Modera Foundation
  */
-class InterceptorsExecutorTest extends InterceptorsExecutorTestCase
+class InterceptorsExecutorTest extends TestCase
 {
     private function createInterceptor()
     {
@@ -52,7 +34,7 @@ class InterceptorsExecutorTest extends InterceptorsExecutorTestCase
 
     private function createSuite($className = null)
     {
-        $suite = \Phake::mock(InterceptorsExecutorTestSuite::class);
+        $suite = \Phake::mock(TestSuite::class);
 
         if ($className) {
             \Phake::when($suite)

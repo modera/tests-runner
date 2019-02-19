@@ -2,6 +2,8 @@
 
 namespace Modera\TestsRunner\Interceptors;
 
+use PHPUnit\Framework\TestCase;
+
 class MysqlInterceptorUT extends MySqlInterceptor
 {
     public $db;
@@ -14,16 +16,6 @@ class MysqlInterceptorUT extends MySqlInterceptor
         $this->givenDbConfig = $config;
 
         return $this->db;
-    }
-}
-
-if (class_exists('PHPUnit\Framework\TestCase')) {
-    class TestCase extends \PHPUnit\Framework\TestCase
-    {
-    }
-} else {
-    class TestCase extends \PHPUnit_Framework_TestCase
-    {
     }
 }
 
