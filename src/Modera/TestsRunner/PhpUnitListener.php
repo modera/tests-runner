@@ -6,75 +6,75 @@ use PHPUnit\Framework\Test;
 use PHPUnit\Framework\Warning;
 use PHPUnit\Framework\AssertionFailedError;
 
-if (class_exists('PHPUnit\Framework\BaseTestListener')) {
-    class PhpUnitTestListener extends \PHPUnit\Framework\TestListener
+if (interface_exists('PHPUnit\Framework\TestListener')) {
+    class PhpUnitTestListener implements \PHPUnit\Framework\TestListener
     {
         /**
          * {@inheritdoc}
-         */
-        public function startTestSuite(\PHPUnit\Framework\TestSuite $suite)
-        {
-            $this->interceptorsExecutor->handleSuite($suite);
-        }
-
-        /**
-         * An error occurred.
          */
         public function addError(Test $test, \Throwable $t, float $time): void
         {
         }
 
         /**
-         * A warning occurred.
+         * {@inheritdoc}
          */
         public function addWarning(Test $test, Warning $e, float $time): void
         {
         }
 
         /**
-         * A failure occurred.
+         * {@inheritdoc}
          */
         public function addFailure(Test $test, AssertionFailedError $e, float $time): void
         {
         }
 
         /**
-         * Incomplete test.
+         * {@inheritdoc}
          */
         public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
         {
         }
 
         /**
-         * Risky test.
+         * {@inheritdoc}
          */
         public function addRiskyTest(Test $test, \Throwable $t, float $time): void
         {
         }
 
         /**
-         * Skipped test.
+         * {@inheritdoc}
          */
         public function addSkippedTest(Test $test, \Throwable $t, float $time): void
         {
         }
 
         /**
-         * A test suite ended.
+         * {@inheritdoc}
          */
-        public function endTestSuite(TestSuite $suite): void
+        public function startTestSuite(\PHPUnit\Framework\TestSuite $suite): void
+        {
+            $this->interceptorsExecutor->handleSuite($suite);
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function endTestSuite(\PHPUnit\Framework\TestSuite $suite): void
         {
         }
 
         /**
-         * A test started.
+         * {@inheritdoc}
          */
         public function startTest(Test $test): void
         {
         }
 
         /**
-         * A test ended.
+         * {@inheritdoc}
          */
         public function endTest(Test $test, float $time): void
         {
