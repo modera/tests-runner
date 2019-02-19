@@ -17,9 +17,14 @@
         "php": ">=5.6"
     },
     "require-dev": {
-        "phake/phake": "^3.0",
         "symfony/yaml": "^3.0",
-        "phpunit/phpunit": "^5.5",
+        "phake/phake": "^2.0|^3.0",
+        "phpunit/phpunit": ">=5.5",
         "mikey179/vfsStream": "^1.6"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
     }
 }

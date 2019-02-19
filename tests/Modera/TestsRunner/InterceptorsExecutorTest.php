@@ -17,11 +17,31 @@ final class InterceptorsExecutorUT extends InterceptorsExecutor
     }
 }
 
+if (class_exists('PHPUnit\Framework\TestCase')) {
+    class InterceptorsExecutorTestCase extends \PHPUnit\Framework\TestCase
+    {
+    }
+} else {
+    class InterceptorsExecutorTestCase extends \PHPUnit_Framework_TestCase
+    {
+    }
+}
+
+if (class_exists('PHPUnit\Framework\TestSuite')) {
+    class InterceptorsExecutorTestSuite extends \PHPUnit\Framework\TestSuite
+    {
+    }
+} else {
+    class InterceptorsExecutorTestSuite extends \PHPUnit_Framework_TestSuite
+    {
+    }
+}
+
 /**
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
  * @copyright 2016 Modera Foundation
  */
-class InterceptorsExecutorTest extends \PHPUnit_Framework_TestCase
+class InterceptorsExecutorTest extends InterceptorsExecutorTestCase
 {
     private function createInterceptor()
     {
@@ -32,7 +52,7 @@ class InterceptorsExecutorTest extends \PHPUnit_Framework_TestCase
 
     private function createSuite($className = null)
     {
-        $suite = \Phake::mock(\PHPUnit_Framework_TestSuite::class);
+        $suite = \Phake::mock(InterceptorsExecutorTestSuite::class);
 
         if ($className) {
             \Phake::when($suite)

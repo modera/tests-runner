@@ -17,11 +17,21 @@ class MysqlInterceptorUT extends MySqlInterceptor
     }
 }
 
+if (class_exists('PHPUnit\Framework\TestCase')) {
+    class TestCase extends \PHPUnit\Framework\TestCase
+    {
+    }
+} else {
+    class TestCase extends \PHPUnit_Framework_TestCase
+    {
+    }
+}
+
 /**
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
  * @copyright 2016 Modera Foundation
  */
-class MySqlInterceptorTest extends \PHPUnit_Framework_TestCase
+class MySqlInterceptorTest extends TestCase
 {
     public function testHowWellItWorks()
     {
