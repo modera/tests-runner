@@ -17,12 +17,12 @@ class MysqlInterceptorUT extends MySqlInterceptor
     }
 }
 
-if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestCase')) {
-    class MySqlInterceptorTestCase extends \PHPUnit\Framework\TestCase
+if (class_exists('PHPUnit_Framework_TestCase')) {
+    class MySqlInterceptorTestCase extends \PHPUnit_Framework_TestCase
     {
     }
 } else {
-    class MySqlInterceptorTestCase extends \PHPUnit_Framework_TestCase
+    class MySqlInterceptorTestCase extends \PHPUnit\Framework\TestCase
     {
     }
 }

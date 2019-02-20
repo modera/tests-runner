@@ -2,12 +2,7 @@
 
 namespace Modera\TestsRunner;
 
-if (PHP_MAJOR_VERSION >= 7 && interface_exists('PHPUnit\Framework\TestListener')) {
-    class PhpUnitTestListener implements \PHPUnit\Framework\TestListener
-    {
-        use TestListenerDefaultImplementation;
-    }
-} else {
+if (class_exists('PHPUnit_Framework_BaseTestListener')) {
     class PhpUnitTestListener extends \PHPUnit_Framework_BaseTestListener
     {
         /**
@@ -17,6 +12,11 @@ if (PHP_MAJOR_VERSION >= 7 && interface_exists('PHPUnit\Framework\TestListener')
         {
             $this->interceptorsExecutor->handleSuite($suite);
         }
+    }
+} else {
+    class PhpUnitTestListener implements \PHPUnit\Framework\TestListener
+    {
+        use TestListenerDefaultImplementation;
     }
 }
 

@@ -4,12 +4,12 @@ namespace Modera\TestsRunner\Interceptors;
 
 use org\bovigo\vfs\vfsStream;
 
-if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestCase')) {
-    class SymfonyPhpUnitEnvInterceptorTestCase extends \PHPUnit\Framework\TestCase
+if (class_exists('PHPUnit_Framework_TestCase')) {
+    class SymfonyPhpUnitEnvInterceptorTestCase extends \PHPUnit_Framework_TestCase
     {
     }
 } else {
-    class SymfonyPhpUnitEnvInterceptorTestCase extends \PHPUnit_Framework_TestCase
+    class SymfonyPhpUnitEnvInterceptorTestCase extends \PHPUnit\Framework\TestCase
     {
     }
 }

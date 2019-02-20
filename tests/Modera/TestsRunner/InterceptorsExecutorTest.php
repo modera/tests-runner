@@ -17,22 +17,22 @@ final class InterceptorsExecutorUT extends InterceptorsExecutor
     }
 }
 
-if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestCase')) {
-    class InterceptorsExecutorTestCase extends \PHPUnit\Framework\TestCase
+if (class_exists('PHPUnit_Framework_TestCase')) {
+    class InterceptorsExecutorTestCase extends \PHPUnit_Framework_TestCase
     {
     }
 } else {
-    class InterceptorsExecutorTestCase extends \PHPUnit_Framework_TestCase
+    class InterceptorsExecutorTestCase extends \PHPUnit\Framework\TestCase
     {
     }
 }
 
-if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestSuite')) {
-    class InterceptorsExecutorTestSuite extends \PHPUnit\Framework\TestSuite
+if (class_exists('PHPUnit_Framework_TestSuite')) {
+    class InterceptorsExecutorTestSuite extends \PHPUnit_Framework_TestSuite
     {
     }
 } else {
-    class InterceptorsExecutorTestSuite extends \PHPUnit_Framework_TestSuite
+    class InterceptorsExecutorTestSuite extends \PHPUnit\Framework\TestSuite
     {
     }
 }

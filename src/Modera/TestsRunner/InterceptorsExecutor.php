@@ -2,13 +2,13 @@
 
 namespace Modera\TestsRunner;
 
-if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestSuite')) {
+if (class_exists('PHPUnit_Framework_TestSuite')) {
     class __InterceptorsExecutor__
     {
         /**
-         * @param \PHPUnit\Framework\TestSuite $suite
+         * @param \PHPUnit_Framework_TestSuite $suite
          */
-        public function handleSuite(\PHPUnit\Framework\TestSuite $suite)
+        public function handleSuite(\PHPUnit_Framework_TestSuite $suite)
         {
             $this->_handleSuite($suite);
         }
@@ -17,9 +17,9 @@ if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestSuite')) {
     class __InterceptorsExecutor__
     {
         /**
-         * @param \PHPUnit_Framework_TestSuite $suite
+         * @param \PHPUnit\Framework\TestSuite $suite
          */
-        public function handleSuite(\PHPUnit_Framework_TestSuite $suite)
+        public function handleSuite(\PHPUnit\Framework\TestSuite $suite)
         {
             $this->_handleSuite($suite);
         }
