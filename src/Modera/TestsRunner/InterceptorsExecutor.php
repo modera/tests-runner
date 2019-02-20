@@ -2,7 +2,7 @@
 
 namespace Modera\TestsRunner;
 
-if (class_exists('PHPUnit\Framework\TestSuite')) {
+if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestSuite')) {
     class __InterceptorsExecutor__
     {
         /**

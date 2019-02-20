@@ -17,12 +17,12 @@ class MysqlInterceptorUT extends MySqlInterceptor
     }
 }
 
-if (class_exists('PHPUnit\Framework\TestCase')) {
-    class TestCase extends \PHPUnit\Framework\TestCase
+if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestCase')) {
+    class MySqlInterceptorTestCase extends \PHPUnit\Framework\TestCase
     {
     }
 } else {
-    class TestCase extends \PHPUnit_Framework_TestCase
+    class MySqlInterceptorTestCase extends \PHPUnit_Framework_TestCase
     {
     }
 }
@@ -31,7 +31,7 @@ if (class_exists('PHPUnit\Framework\TestCase')) {
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
  * @copyright 2016 Modera Foundation
  */
-class MySqlInterceptorTest extends TestCase
+class MySqlInterceptorTest extends MySqlInterceptorTestCase
 {
     public function testHowWellItWorks()
     {

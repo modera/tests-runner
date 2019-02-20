@@ -2,83 +2,10 @@
 
 namespace Modera\TestsRunner;
 
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\Warning;
-use PHPUnit\Framework\AssertionFailedError;
-
-if (interface_exists('PHPUnit\Framework\TestListener')) {
+if (PHP_MAJOR_VERSION >= 7 && interface_exists('PHPUnit\Framework\TestListener')) {
     class PhpUnitTestListener implements \PHPUnit\Framework\TestListener
     {
-        /**
-         * {@inheritdoc}
-         */
-        public function addError(Test $test, \Throwable $t, float $time): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function addWarning(Test $test, Warning $e, float $time): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function addFailure(Test $test, AssertionFailedError $e, float $time): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function addRiskyTest(Test $test, \Throwable $t, float $time): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function addSkippedTest(Test $test, \Throwable $t, float $time): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function startTestSuite(\PHPUnit\Framework\TestSuite $suite): void
-        {
-            $this->interceptorsExecutor->handleSuite($suite);
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function endTestSuite(\PHPUnit\Framework\TestSuite $suite): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function startTest(Test $test): void
-        {
-        }
-
-        /**
-         * {@inheritdoc}
-         */
-        public function endTest(Test $test, float $time): void
-        {
-        }
+        use TestListenerDefaultImplementation;
     }
 } else {
     class PhpUnitTestListener extends \PHPUnit_Framework_BaseTestListener

@@ -17,7 +17,7 @@ final class InterceptorsExecutorUT extends InterceptorsExecutor
     }
 }
 
-if (class_exists('PHPUnit\Framework\TestCase')) {
+if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestCase')) {
     class InterceptorsExecutorTestCase extends \PHPUnit\Framework\TestCase
     {
     }
@@ -27,7 +27,7 @@ if (class_exists('PHPUnit\Framework\TestCase')) {
     }
 }
 
-if (class_exists('PHPUnit\Framework\TestSuite')) {
+if (PHP_MAJOR_VERSION >= 7 && class_exists('PHPUnit\Framework\TestSuite')) {
     class InterceptorsExecutorTestSuite extends \PHPUnit\Framework\TestSuite
     {
     }
