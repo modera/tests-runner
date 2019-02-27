@@ -7,76 +7,91 @@ use PHPUnit\Framework\Warning;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\AssertionFailedError;
 
-trait TestListenerDefaultImplementation
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function addError(Test $test, \Throwable $t, float $time): void
+if (trait_exists('PHPUnit\Framework\TestListenerDefaultImplementation')) {
+    trait TestListenerDefaultImplementation
     {
-    }
+        use \PHPUnit\Framework\TestListenerDefaultImplementation;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addWarning(Test $test, Warning $e, float $time): void
-    {
+        /**
+         * {@inheritdoc}
+         */
+        public function startTestSuite(TestSuite $suite)
+        {
+            $this->interceptorsExecutor->handleSuite($suite);
+        }
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
+} else {
+    trait TestListenerDefaultImplementation
     {
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function addError(Test $test, \Exception $e, $time)
+        {
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
-    {
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function addWarning(Test $test, Warning $e, $time)
+        {
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addRiskyTest(Test $test, \Throwable $t, float $time): void
-    {
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function addFailure(Test $test, AssertionFailedError $e, $time)
+        {
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addSkippedTest(Test $test, \Throwable $t, float $time): void
-    {
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function addIncompleteTest(Test $test, \Exception $e, $time)
+        {
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function startTestSuite(TestSuite $suite): void
-    {
-        $this->interceptorsExecutor->handleSuite($suite);
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function addRiskyTest(Test $test, \Exception $e, $time)
+        {
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function endTestSuite(TestSuite $suite): void
-    {
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function addSkippedTest(Test $test, \Exception $e, $time)
+        {
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function startTest(Test $test): void
-    {
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function startTestSuite(TestSuite $suite)
+        {
+            $this->interceptorsExecutor->handleSuite($suite);
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function endTest(Test $test, float $time): void
-    {
+        /**
+         * {@inheritdoc}
+         */
+        public function endTestSuite(TestSuite $suite)
+        {
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function startTest(Test $test)
+        {
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function endTest(Test $test, $time)
+        {
+        }
     }
 }
