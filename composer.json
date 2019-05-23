@@ -23,7 +23,7 @@
     "require-dev": {
         "phake/phake": "^3.0",
         "phpunit/phpunit": "^8.0",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsstream": "^1.6"
     },
     "extra": {
         "branch-alias": {

@@ -2,6 +2,7 @@
 
 namespace Modera\TestsRunner\Interceptors;
 
+use Symfony\Component\Finder\Finder;
 use Modera\TestsRunner\BaseInterceptor;
 
 /**
@@ -36,9 +37,9 @@ class SymfonyPhpUnitEnvInterceptor extends BaseInterceptor
 
         // setting env variables by scanning phpunit's php/server[] values
         $xml = new \SimpleXMLElement(file_get_contents($phpUnitXmlPath));
-        foreach ($xml as $child) {
-            /* @var \SimpleXMLElement $child */
 
+        /* @var \SimpleXMLElement $child */
+        foreach ($xml as $child) {
             if ($child->getName() == 'php') {
                 foreach ($child->children() as $phpChild) {
                     /* @var \SimpleXMLElement $phpChild */
@@ -65,6 +66,20 @@ class SymfonyPhpUnitEnvInterceptor extends BaseInterceptor
                     }
                 }
             }
+        }
+
+        if (!isset($_SERVER['KERNEL_CLASS']) && isset($_SERVER['KERNEL_DIR']) && is_dir($_SERVER['KERNEL_DIR'])) {
+            $finder = new Finder();
+            $finder->name('*Kernel.php')->depth(0)->in($_SERVER['KERNEL_DIR']);
+            $results = iterator_to_array($finder);
+            $file = current($results);
+            $class = $file->getBasename('.php');
+            $_SERVER['KERNEL_CLASS'] = $class;
+            $this->vars[] = 'KERNEL_CLASS';
+        }
+
+        if (isset($_SERVER['KERNEL_DIR']) && isset($_SERVER['KERNEL_CLASS'])) {
+            require_once $_SERVER['KERNEL_DIR'] . DIRECTORY_SEPARATOR . $_SERVER['KERNEL_CLASS'] . '.php';
         }
     }
 
