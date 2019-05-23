@@ -68,7 +68,7 @@ class SymfonyPhpUnitEnvInterceptor extends BaseInterceptor
             }
         }
 
-        if (!isset($_SERVER['KERNEL_CLASS']) && isset($_SERVER['KERNEL_DIR'])) {
+        if (!isset($_SERVER['KERNEL_CLASS']) && isset($_SERVER['KERNEL_DIR']) && is_dir($_SERVER['KERNEL_DIR'])) {
             $finder = new Finder();
             $finder->name('*Kernel.php')->depth(0)->in($_SERVER['KERNEL_DIR']);
             $results = iterator_to_array($finder);
